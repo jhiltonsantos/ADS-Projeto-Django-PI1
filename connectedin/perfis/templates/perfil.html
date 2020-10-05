@@ -6,12 +6,14 @@
         <title>ConnectedIn</title>
     </head>
     <body>
-        <h1>Detalhes do perfil</h1>
+        <h1>Detalhes do perfil - {{perfil.nome}}</h1>
         <ul>
-            <l1>nome: {{perfil.name}}<br></l1>
-            <l1>email: {{perfil.email}}<br></l1>
-            <l1>telefone: {{perfil.telephone}}<br></l1>
-            <l1>empresa: {{perfil.name_comp}}<br></l1>
+            <l1>Nome: {{perfil.nome}}<br></l1>
+            <l1>E-mail: {{perfil.email}}<br></l1>
+            <l1>Telefone: {{perfil.telefone}}<br></l1>
+            <l1>Empresa: {{perfil.nome_empresa}}<br></l1>
+            <br>
+            <a href="{% url 'convidar' perfil.id %}">Convidar</a>
         </ul>
     </body>
 </html>
