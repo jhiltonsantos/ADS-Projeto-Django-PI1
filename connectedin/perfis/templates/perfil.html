@@ -1,19 +1,23 @@
-<!DOCTYPE html>
-
-<html lang="pt-br">
-    <head>
-        <meta charset="utf-8">
-        <title>ConnectedIn</title>
-    </head>
-    <body>
-        <h1>Detalhes do perfil - {{perfil.nome}}</h1>
-        <ul>
-            <l1>Nome: {{perfil.nome}}<br></l1>
-            <l1>E-mail: {{perfil.email}}<br></l1>
-            <l1>Telefone: {{perfil.telefone}}<br></l1>
-            <l1>Empresa: {{perfil.nome_empresa}}<br></l1>
-            <br>
-            <a href="{% url 'convidar' perfil.id %}">Convidar</a>
-        </ul>
-    </body>
-</html>
+{% extends "base.html" %}
+{% block body %}
+    <div class="row">
+        <div class="col-lg-10">
+            <h2 style="margin-top: 0">{{perfil.nome}}</h2>
+            <address>
+                <p title="Empresa">Empresa: <strong>{{perfil.nome_empresa}}</strong></p>
+                <p title="Telefone">Telefone: <strong>{{perfil.telefone}}</strong></p>
+                <a href="mailto:{{perfil.email}}">{{perfil.email}}</a>               
+            </address>
+        {% if eh_contato %}
+            <div class="well well-sm">
+                Vocês estão conectados!
+            </div>
+        {% else %}
+            <a href="{% url 'convidar' perfil.id %}"class="btn btn-success" role="button">
+                Convidar
+            </a>
+        {% endif %} 
+        
+        </div>
+    </div>
+{% endblock %}
