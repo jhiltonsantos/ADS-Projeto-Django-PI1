@@ -50,10 +50,3 @@ def aceitar(request, convite_id):
     convite.aceitar()
     return redirect('index')
 
-
-@login_required
-def postar(request):
-    perfil = get_perfil_logado(request)
-    texto = request.GET['texto']
-    Postagem.objects.create(perfil=perfil, texto=texto)
-    return redirect('index')
