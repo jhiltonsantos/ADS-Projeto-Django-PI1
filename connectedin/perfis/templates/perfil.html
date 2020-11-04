@@ -23,8 +23,7 @@
             <h3><strong>Postagens</strong></h3>
             <div class="panel panel-group">
                 
-                {% if postagens %}
-                
+                {% if postagens %}  
                     {% for post in postagens %}
                        {% if post.perfil == perfil%}
                             <div class="container">
@@ -32,7 +31,7 @@
                                     <a href="{% url 'exibir' post.perfil.id %}">{{post.perfil.nome}}</a>
                                 </p>
                                 <div class="well well-default">
-                                    <div class="content">{{post.texto}}</div>
+                                    <div class="content"><h4>{{post.texto}}</h4></div>
                                 </div>
                             </div>           
                         {% endif %}

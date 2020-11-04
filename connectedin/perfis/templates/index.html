@@ -94,21 +94,25 @@
             </div>
 
             <!- Painel de Postagens->
-            <div class="panel panel-default">
-                <strong>Postagens</strong>
-                {% if postagens %} 
-                    {% for post in postagens %}
-                       {% for contato in contatos %}
-                            <div class="well well-sm">
-                                    <p>Publicado por: 
-                                        <a href="{% url 'exibir' post.perfil.id %}">{{post.perfil.nome}}</a>
-                                    </p>
-                                    <p><strong>{{post.data}}</strong></p>    
-                                    <div class="content">{{post.texto}}</div>
-                            </div>
+            <div class="panel heading">
+                <h3><strong>Postagens</strong></h3>
+                <div class="panel panel-group">
+                    {% if postagens %} 
+                        {% for post in postagens %}
+                        {% if post.perfil != perfil_logado and post.perfil in contatos %}
+                                <div class="container">
+                                        <div class="well well-default">
+                                            <h4><div class="content">{{post.texto}}</div></h4>
+                                            <p>Publicado por: 
+                                                <a href="{% url 'exibir' post.perfil.id %}">{{post.perfil.nome}}</a>
+                                            </p>
+                                        </div>
+                                        
+                                </div>
+                            {% endif %}
                         {% endfor %}
-                    {% endfor %}
-                {% endif %}
+                    {% endif %}
+                </div>
             </div>
         </div>
     </div>   
