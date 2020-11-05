@@ -3,13 +3,18 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from django.shortcuts import redirect
 from django.contrib.auth.decorators import login_required
+from perfis.models import Perfil, Postagem
 
 
 @login_required
 def index(request):
-    return render(request, 'index.html', 
-                  {'perfis': Perfil.objects.all(), 
-                   'perfil_logado': get_perfil_logado(request)})
+    perfil_logado = get_perfil_logado(request)
+    context = {}
+    context['perfis'] = Perfil.objects.all()
+    context['perfil_logado'] = get_perfil_logado(request)
+    context['postagens'] = Postagem.objects.all().order_by("-data")
+    context['contatos'] = perfil_logado.contatos.all()
+    return render(request, 'index.html', context)
 
 
 @login_required
@@ -21,7 +26,8 @@ def display(request, perfil_id):
     return render(request, 'perfil.html',
                   {'perfil' : perfil, 
                    'perfil_logado' : get_perfil_logado(request),
-                   'eh_contato' : eh_contato})
+                   'eh_contato' : eh_contato,
+                   'postagens': Postagem.objects.all().order_by("-data")})
     
 
 @login_required
@@ -42,4 +48,12 @@ def get_perfil_logado(request):
 def aceitar(request, convite_id):
     convite = Convite.objects.get(id=convite_id)
     convite.aceitar()
+    return redirect('index')
+
+
+@login_required
+def postar(request):
+    perfil = get_perfil_logado(request)
+    texto = request.GET['texto']
+    Postagem.objects.create(perfil=perfil, texto=texto)
     return redirect('index')

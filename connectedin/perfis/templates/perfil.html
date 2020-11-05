@@ -8,15 +8,39 @@
                 <p title="Telefone">Telefone: <strong>{{perfil.telefone}}</strong></p>
                 <a href="mailto:{{perfil.email}}">{{perfil.email}}</a>               
             </address>
-        {% if eh_contato %}
-            <div class="well well-sm">
-                Vocês estão conectados!
+            {% if eh_contato %}
+                <div class="well well-sm">
+                    Vocês estão conectados!
+                </div>
+            {% else %}
+                <a href="{% url 'convidar' perfil.id %}"class="btn btn-success" role="button">
+                    Convidar
+                </a>
+            {% endif %} 
+
+        
+        <div class="panel heading">
+            <h3><strong>Postagens</strong></h3>
+            <div class="panel panel-group">
+                
+                {% if postagens %}
+                
+                    {% for post in postagens %}
+                       {% if post.perfil == perfil%}
+                            <div class="container">
+                                <p>Publicado por: 
+                                    <a href="{% url 'exibir' post.perfil.id %}">{{post.perfil.nome}}</a>
+                                </p>
+                                <div class="well well-default">
+                                    <div class="content">{{post.texto}}</div>
+                                </div>
+                            </div>           
+                        {% endif %}
+                    {% endfor %}
+        
+                {% endif %}
             </div>
-        {% else %}
-            <a href="{% url 'convidar' perfil.id %}"class="btn btn-success" role="button">
-                Convidar
-            </a>
-        {% endif %} 
+        </div>
         
         </div>
     </div>

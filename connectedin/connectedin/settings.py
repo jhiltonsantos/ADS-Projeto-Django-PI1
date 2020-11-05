@@ -40,6 +40,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'perfis',
     'usuarios',
+    #'timeline',
+    
 ]
 
 MIDDLEWARE = [

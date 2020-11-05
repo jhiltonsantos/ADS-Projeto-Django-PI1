@@ -18,6 +18,8 @@
                 <p>Nenhum perfil encontrado</p>
             {% endif %}
 
+
+
             <!- Painel de Convites->
             <div class="panel panel-default">
                 {% with convites=perfil_logado.convites_recebidos %}
@@ -49,6 +51,21 @@
                 {% endwith %}
             </div>
 
+            <!- Nova Postagem->
+            <div class="panel panel-default">
+              <div class="panel-heading"><strong>Nova Postagem</strong></div>
+              <div class="description">
+                <div class="ui form">
+                  <form action="{% url 'postar' %}" method="get" id="postar">
+                    <div class="field">
+                      <textarea rows="2" cols="62" name="texto"></textarea>
+                    </div>
+                    <button type="submit" form="postar" class="ui button">Postar</button>
+                  </form>
+                </div>
+              </div>
+            </div>
+            
             <!- Painel de Contatos->
             <div class="panel panel-default">
                 {% with contatos=perfil_logado.contatos %}
@@ -74,6 +91,24 @@
                         </div>
                     {% endif %}
                 {% endwith %}
+            </div>
+
+            <!- Painel de Postagens->
+            <div class="panel panel-default">
+                <strong>Postagens</strong>
+                {% if postagens %} 
+                    {% for post in postagens %}
+                       {% for contato in contatos %}
+                            <div class="well well-sm">
+                                    <p>Publicado por: 
+                                        <a href="{% url 'exibir' post.perfil.id %}">{{post.perfil.nome}}</a>
+                                    </p>
+                                    <p><strong>{{post.data}}</strong></p>    
+                                    <div class="content">{{post.texto}}</div>
+                            </div>
+                        {% endfor %}
+                    {% endfor %}
+                {% endif %}
             </div>
         </div>
     </div>   
